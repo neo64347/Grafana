@@ -1,0 +1,50 @@
+# AWS Configuration
+aws_region = "us-west-2"
+
+# Project Configuration
+project_name = "grafana-monitoring"
+
+# Network Configuration
+vpc_cidr = "10.0.0.0/16"
+availability_zones = ["us-west-2a", "us-west-2b"]
+private_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
+public_subnet_cidrs = ["10.0.101.0/24", "10.0.102.0/24"]
+
+# Grafana Configuration
+grafana_admin_password = "ChangeMe123!"
+grafana_cpu = 256
+grafana_memory = 512
+grafana_desired_count = 1
+# grafana_ecr_image = "123456789012.dkr.ecr.us-west-2.amazonaws.com/grafana-monitoring-grafana:latest"
+
+# Prometheus Configuration
+prometheus_cpu = 256
+prometheus_memory = 512
+prometheus_desired_count = 1
+# prometheus_ecr_image = "123456789012.dkr.ecr.us-west-2.amazonaws.com/grafana-monitoring-prometheus:latest"
+
+# Loki Configuration
+loki_cpu = 256
+loki_memory = 512
+loki_desired_count = 1
+# loki_ecr_image = "123456789012.dkr.ecr.us-west-2.amazonaws.com/grafana-monitoring-loki:latest"
+
+# Grafana Alloy Configuration
+grafana_agent_cpu = 256
+grafana_agent_memory = 512
+grafana_agent_desired_count = 1
+# grafana_agent_ecr_image = "123456789012.dkr.ecr.us-west-2.amazonaws.com/grafana-monitoring-grafana-alloy:latest"
+
+# Example Application Configuration
+example_app_cpu = 512
+example_app_memory = 1024
+example_app_desired_count = 1
+# example_app_ecr_image = "123456789012.dkr.ecr.us-west-2.amazonaws.com/grafana-monitoring-example-app:latest"
+
+# Common Tags
+common_tags = {
+  Environment = "production"
+  Project     = "grafana-monitoring"
+  ManagedBy   = "terraform"
+  Owner       = "devops-team"
+}

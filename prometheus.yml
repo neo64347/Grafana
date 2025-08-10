@@ -1,0 +1,61 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Grafana
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['localhost:3000']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # ECS Container Insights (if enabled)
+  - job_name: 'ecs-container-insights'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  # Application Sidecar Prometheus
+  - job_name: 'app-prometheus-sidecar'
+    static_configs:
+      - targets: ['example-app.prometheus.local:9090']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Application Sidecar Loki
+  - job_name: 'app-loki-sidecar'
+    static_configs:
+      - targets: ['example-app.prometheus.local:3100']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Grafana Alloy
+  - job_name: 'grafana-alloy'
+    static_configs:
+      - targets: ['localhost:12345']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Example: Add your application metrics endpoints here
+  # - job_name: 'my-app'
+  #   static_configs:
+  #     - targets: ['app:8080']
+  #   metrics_path: '/metrics'
+  #   scrape_interval: 30s
+
+  # Example: Node Exporter for host metrics
+  # - job_name: 'node-exporter'
+  #   static_configs:
+  #     - targets: ['node-exporter:9100']
+  #   scrape_interval: 30s

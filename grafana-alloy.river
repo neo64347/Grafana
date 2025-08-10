@@ -1,0 +1,66 @@
+// Grafana Alloy Configuration for Flow Mode
+// This configuration collects logs and metrics and sends them to Loki and Prometheus
+
+// Logs collection and forwarding to Loki
+loki.source.file "system_logs" {
+  targets = [
+    {__path__ = "/var/log/*log", job = "varlogs"},
+    {__path__ = "/var/lib/docker/containers/*/*log", job = "containerlogs"},
+    {__path__ = "/var/log/grafana/*log", job = "grafana"},
+    {__path__ = "/var/log/prometheus/*log", job = "prometheus"},
+  ]
+  forward_to = [loki.write.default.receiver]
+}
+
+// Loki remote write configuration
+loki.write "default" {
+  endpoint {
+    url = "http://example-app.prometheus.local:3100/loki/api/v1/push"
+  }
+}
+
+// Metrics collection and forwarding to Prometheus
+prometheus.remote_write "default" {
+  endpoint {
+    url = "http://example-app.prometheus.local:9090/api/v1/write"
+  }
+}
+
+// Prometheus scrape configuration for various targets
+prometheus.scrape "prometheus" {
+  targets = [
+    {"__address__" = "localhost:9090", "job" = "prometheus"},
+  ]
+  forward_to = [prometheus.remote_write.default.receiver]
+  scrape_interval = "30s"
+}
+
+prometheus.scrape "grafana" {
+  targets = [
+    {"__address__" = "localhost:3000", "job" = "grafana"},
+  ]
+  forward_to = [prometheus.remote_write.default.receiver]
+  scrape_interval = "30s"
+  metrics_path = "/metrics"
+}
+
+prometheus.scrape "loki" {
+  targets = [
+    {"__address__" = "localhost:3100", "job" = "loki"},
+  ]
+  forward_to = [prometheus.remote_write.default.receiver]
+  scrape_interval = "30s"
+  metrics_path = "/metrics"
+}
+
+prometheus.scrape "grafana_alloy" {
+  targets = [
+    {"__address__" = "localhost:12345", "job" = "grafana-alloy"},
+  ]
+  forward_to = [prometheus.remote_write.default.receiver]
+  scrape_interval = "30s"
+  metrics_path = "/metrics"
+}
+
+
+
