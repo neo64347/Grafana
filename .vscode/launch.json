@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch in Git Bash",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/deploy.sh",
+            "console": "integratedTerminal",
+            "terminal.integrated.defaultProfile.windows": "Git Bash"
+        }
+    ]
+}
+

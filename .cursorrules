@@ -1,0 +1,15 @@
+# Cursor Configuration for Git Bash Terminal
+
+# Set default terminal to Git Bash
+# This file tells Cursor to use Git Bash as the default terminal
+
+# Terminal settings:
+# - Default shell: Git Bash
+# - Path: C:\Program Files\Git\bin\bash.exe
+# - Arguments: --login
+
+# To apply these settings:
+# 1. Restart Cursor
+# 2. Open a new terminal (Ctrl+Shift+`)
+# 3. The terminal should now open as Git Bash instead of PowerShell
+

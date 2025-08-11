@@ -59,13 +59,9 @@ resource "aws_ecs_task_definition" "grafana" {
         },
         {
           name  = "GF_DATASOURCES_DEFAULT_PROMETHEUS_URL"
-          value = "http://${aws_service_discovery_service.example_app.name}.${aws_service_discovery_private_dns_namespace.prometheus.name}:9090"
+          value = "http://${aws_service_discovery_service.prometheus.name}.${aws_service_discovery_private_dns_namespace.prometheus.name}:9090"
         }
       ]
-
-      repositoryCredentials = {
-        credentialsParameter = aws_iam_role.ecs_task_execution_role.arn
-      }
 
       logConfiguration = {
         logDriver = "awslogs"
