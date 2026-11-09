@@ -59,7 +59,6 @@ variable "grafana_ecr_image" {
 variable "grafana_admin_password" {
   description = "Grafana admin password"
   type        = string
-  default     = "admin123"
   sensitive   = true
 }
 
